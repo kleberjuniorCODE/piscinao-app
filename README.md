@@ -1,5 +1,7 @@
 # 🏊‍♂️ Piscinão Araçatuba - Sistema de Fidelidade e Painel Administrativo
 
+[![CI Build & Verification](https://github.com/kleberjuniorCODE/piscinao-app/actions/workflows/ci.yml/badge.svg)](https://github.com/kleberjuniorCODE/piscinao-app/actions/workflows/ci.yml)
+
 > **🤖 REGRA OBRIGATÓRIA PARA TODOS OS AGENTES DE IA E MODELOS (AGENTS.MD)**  
 > **Atenção Agentes:** Crie Issues no GitHub para todas as Tarefas (Correção, Melhoria ou Nova função) que faremos e trabalhe com PRs para gerenciar os Deploys. Lembre de Mencionar a Issue na descrição do PR. Alimente o arquivo `.md` do projeto com essas instruções para que qualquer agente de qualquer modelo considere esse padrão.
 
