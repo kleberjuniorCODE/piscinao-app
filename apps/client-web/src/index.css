@@ -21,24 +21,25 @@
 }
 
 :root {
-  /* Brand Palette - From Logo */
-  --primary: #7D5A3C;
-  --primary-light: #A67C5B;
-  --primary-dark: #5C3D28;
-  --primary-50: #F5EDE3;
-  --primary-100: #E8D5C4;
+  /* Brand Palette - From Image Design System */
+  --primary: #5B3422;          /* Marrom Escuro Principal */
+  --primary-light: #7A4A2F;    /* Marrom Médio Destaques */
+  --primary-dark: #3E2215;     /* Marrom Escuro Profundo */
+  --primary-50: #F6F1E9;       /* Creme Suave */
+  --primary-100: #EAE1D5;
 
-  /* Accent - Water Teal/Blue */
-  --accent: #2E86AB;
-  --accent-light: #A8D5E2;
-  --accent-dark: #1A5F7A;
+  /* Accent - Sky Blue (#7EC4E6) */
+  --accent: #7EC4E6;
+  --accent-light: #C6E7F5;
+  --accent-dark: #4FA8D5;
+  --sky-blue: #7EC4E6;
 
-  /* Pirate Map Gold & Parchment */
-  --gold: #D4A853;
-  --gold-light: #F0DCA0;
-  --gold-dark: #B3862A;
-  --parchment: #F8F1E3;
-  --parchment-border: #E8D8C0;
+  /* Gold & Cream */
+  --gold: #7A4A2F;
+  --gold-light: #F6F1E9;
+  --gold-dark: #5B3422;
+  --parchment: #F6F1E9;
+  --parchment-border: #D5C2B1;
 
   /* Semantic */
   --success: #4CAF50;
@@ -46,14 +47,14 @@
   --error: #E53935;
 
   /* Backgrounds */
-  --bg-app: #F7F3EE;
+  --bg-app: #F6F1E9;           /* Creme Suave Fundo */
   --bg-card: #FFFFFF;
-  --bg-header: linear-gradient(135deg, #5C3D28 0%, #7D5A3C 100%);
+  --bg-header: linear-gradient(135deg, #3E2215 0%, #5B3422 100%);
   
   /* Text */
-  --text-primary: #2C1810;
-  --text-secondary: #6B5B4F;
-  --text-muted: #8C7A6E;
+  --text-primary: #5B3422;
+  --text-secondary: #7A4A2F;
+  --text-muted: #9E8576;
   --text-inverse: #FFFFFF;
 
   /* Layout - Responsive */
@@ -69,7 +70,7 @@
 html, body {
   height: 100%;
   width: 100%;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: var(--bg-app);
   color: var(--text-primary);
   -webkit-tap-highlight-color: transparent;

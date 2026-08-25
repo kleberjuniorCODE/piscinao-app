@@ -21,22 +21,23 @@
 }
 
 :root {
-  /* Primary - Brown (from logo) */
-  --primary: #7D5A3C;
-  --primary-light: #A67C5B;
-  --primary-dark: #5C3D28;
-  --primary-50: #F5EDE3;
-  --primary-100: #E8D5C4;
-  --primary-200: #C4A882;
+  /* New Official Design System Colors */
+  --primary: #5B3422;          /* Marrom Escuro Principal */
+  --primary-light: #7A4A2F;    /* Marrom Médio Destaques */
+  --primary-dark: #3E2215;     /* Marrom Escuro Profundo */
+  --primary-50: #F6F1E9;       /* Creme Suave */
+  --primary-100: #EAE1D5;
+  --primary-200: #D5C2B1;
 
-  /* Accent - Blue (water) */
-  --accent: #2E86AB;
-  --accent-light: #A8D5E2;
-  --accent-dark: #1A5F7A;
+  /* Accent - Sky Blue (from image #7EC4E6) */
+  --accent: #7EC4E6;
+  --accent-light: #C6E7F5;
+  --accent-dark: #4FA8D5;
+  --sky-blue: #7EC4E6;
 
-  /* Gold (rewards) */
-  --gold: #D4A853;
-  --gold-light: #F0DCA0;
+  /* Gold / Warm Accent */
+  --gold: #7A4A2F;
+  --gold-light: #F6F1E9;
 
   /* Semantic */
   --success: #4CAF50;
@@ -45,43 +46,44 @@
   --warning-light: #FFF3E0;
   --error: #E53935;
   --error-light: #FFEBEE;
-  --info: #2196F3;
+  --info: #7EC4E6;
   --info-light: #E3F2FD;
 
   /* Backgrounds */
-  --bg: #FAF7F4;
-  --bg-sidebar: #2C1810;
-  --bg-sidebar-hover: #3D261A;
-  --bg-sidebar-active: #7D5A3C;
+  --bg: #F6F1E9;               /* Creme Suave Fundo */
+  --bg-sidebar: #5B3422;       /* Sidebar Marrom Escuro */
+  --bg-sidebar-hover: #7A4A2F;
+  --bg-sidebar-active: #3E2215;
   --bg-card: #FFFFFF;
   --bg-input: #FFFFFF;
 
   /* Text */
-  --text: #2C1810;
-  --text-secondary: #6B5B4F;
-  --text-muted: #8C7A6E;
+  --text: #5B3422;
+  --text-secondary: #7A4A2F;
+  --text-muted: #9E8576;
   --text-inverse: #FFFFFF;
-  --text-link: #2E86AB;
+  --text-link: #7EC4E6;
 
   /* Borders */
-  --border: #E0D6CC;
-  --border-light: #F0EBE3;
-  --border-focus: #7D5A3C;
+  --border: #D5C2B1;
+  --border-light: #EAE1D5;
+  --border-focus: #5B3422;
 
   /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(44, 24, 16, 0.06);
-  --shadow-md: 0 4px 12px rgba(44, 24, 16, 0.08);
-  --shadow-lg: 0 8px 24px rgba(44, 24, 16, 0.12);
+  --shadow-sm: 0 2px 6px rgba(91, 52, 34, 0.05);
+  --shadow-md: 0 4px 14px rgba(91, 52, 34, 0.08);
+  --shadow-lg: 0 8px 24px rgba(91, 52, 34, 0.12);
 
   /* Radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
   --radius-xl: 24px;
   --radius-full: 9999px;
 
   /* Typography */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-md: 1rem;

@@ -499,7 +499,7 @@ export default function AuthScreen({ onLoginSuccess }: AuthScreenProps) {
         <div className="brand-logo-wrap">
           <span className="brand-kardust auth-logo-text">PISCINÃO</span>
         </div>
-        <p className="auth-tagline">Sua Loja de Piscinas em Araçatuba — Programa VIP</p>
+        <p className="auth-tagline">Confiança que se constrói. — Programa VIP</p>
       </div>
 
       {/* Main Auth Card */}
