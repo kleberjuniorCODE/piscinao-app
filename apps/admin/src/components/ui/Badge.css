@@ -1,0 +1,28 @@
+.ui-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+.badge-default {
+  background: var(--bg);
+  color: var(--text-secondary);
+}
+
+.badge-active {
+  background: rgba(76, 175, 80, 0.1);
+  color: var(--success);
+}
+
+.badge-inactive {
+  background: rgba(229, 57, 53, 0.1);
+  color: var(--error);
+}
+
+.badge-featured {
+  background: var(--gold-light);
+  color: var(--primary-dark);
+}

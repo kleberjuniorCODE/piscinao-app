@@ -1,0 +1,259 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id             String    @id @default(uuid())
+  name           String
+  email          String    @unique
+  phone          String?
+  passwordHash   String
+  avatarUrl      String?
+  role           String    @default("CLIENT")
+  expoPushToken  String?
+  isActive       Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  clientPurchases Purchase[] @relation("ClientPurchases")
+  adminPurchases  Purchase[] @relation("AdminPurchases")
+  clientProgress  ClientProgress?
+  clientRewards   ClientReward[]
+  recommendations ClientRecommendation[]
+  notifications   Notification[]
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  imageUrl    String?
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
+
+  products    Product[]
+  couponRules CouponRule[]
+  recRules    RecommendationRule[]
+}
+
+model Product {
+  id              String    @id @default(uuid())
+  categoryId      String
+  name            String
+  description     String?
+  price           Float
+  showPrice       Boolean   @default(true)
+  imageUrl        String?
+  whatsappMessage String?
+  isActive        Boolean   @default(true)
+  sortOrder       Int       @default(0)
+  createdAt       DateTime  @default(now())
+
+  category        Category  @relation(fields: [categoryId], references: [id])
+  purchaseItems   PurchaseItem[]
+  couponRules     CouponRule[]
+  promotions      Promotion[]
+  recRules        RecommendationRule[] @relation("RecRuleProduct")
+  recRuleTargets  RecommendationRule[] @relation("RecRuleTargetProduct")
+}
+
+model Purchase {
+  id             String    @id @default(uuid())
+  clientId       String
+  registeredById String
+  totalAmount    Float
+  couponsEarned  Int
+  notes          String?
+  purchaseDate   DateTime  @default(now())
+  createdAt      DateTime  @default(now())
+
+  client         User      @relation("ClientPurchases", fields: [clientId], references: [id])
+  registeredBy   User      @relation("AdminPurchases", fields: [registeredById], references: [id])
+  items          PurchaseItem[]
+  recommendations ClientRecommendation[]
+}
+
+model PurchaseItem {
+  id         String    @id @default(uuid())
+  purchaseId String
+  productId  String
+  quantity   Int
+  unitPrice  Float
+  subtotal   Float
+
+  purchase   Purchase  @relation(fields: [purchaseId], references: [id])
+  product    Product   @relation(fields: [productId], references: [id])
+}
+
+model CouponsConfig {
+  id              String    @id @default(uuid())
+  name            String
+  amountPerCoupon Float
+  isActive        Boolean   @default(true)
+  validFrom       DateTime?
+  validUntil      DateTime?
+
+  rules           CouponRule[]
+}
+
+model CouponRule {
+  id              String    @id @default(uuid())
+  configId        String
+  ruleType        String
+  targetProductId String?
+  targetCategoryId String?
+  bonusCoupons    Int       @default(0)
+  bonusMultiplier Float     @default(1.0)
+  description     String?
+  isActive        Boolean   @default(true)
+  validFrom       DateTime?
+  validUntil      DateTime?
+
+  config          CouponsConfig @relation(fields: [configId], references: [id])
+  targetProduct   Product?      @relation(fields: [targetProductId], references: [id])
+  targetCategory  Category?     @relation(fields: [targetCategoryId], references: [id])
+}
+
+model TrailConfig {
+  id              String    @id @default(uuid())
+  name            String
+  totalSteps      Int
+  couponsPerStep  Int
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+
+  steps           TrailStep[]
+  clientProgress  ClientProgress[]
+}
+
+model TrailStep {
+  id               String    @id @default(uuid())
+  trailId          String
+  stepNumber       Int
+  name             String
+  iconType         String    @default("STAR")
+  customIconUrl    String?
+  description      String?
+  milestoneRewardId String?
+
+  trail            TrailConfig @relation(fields: [trailId], references: [id])
+  milestoneReward  Reward?     @relation(fields: [milestoneRewardId], references: [id])
+}
+
+model ClientProgress {
+  id                   String    @id @default(uuid())
+  clientId             String    @unique
+  trailId              String
+  totalCoupons         Int       @default(0)
+  currentStep          Int       @default(0)
+  couponsInCurrentStep Int       @default(0)
+  treasureUnlocked     Boolean   @default(false)
+  treasureClaimedAt    DateTime?
+  updatedAt            DateTime  @updatedAt
+
+  client               User        @relation(fields: [clientId], references: [id])
+  trail                TrailConfig @relation(fields: [trailId], references: [id])
+}
+
+model Reward {
+  id               String       @id @default(uuid())
+  name             String
+  description      String?
+  imageUrl         String?
+  couponsRequired  Int?
+  isFinalReward    Boolean      @default(false)
+  status           String       @default("ACTIVE")
+  validUntil       DateTime?
+  createdAt        DateTime     @default(now())
+
+  trailSteps       TrailStep[]
+  clientRewards    ClientReward[]
+}
+
+model ClientReward {
+  id         String             @id @default(uuid())
+  clientId   String
+  rewardId   String
+  status     String             @default("AVAILABLE")
+  unlockedAt DateTime           @default(now())
+  claimedAt  DateTime?
+
+  client     User      @relation(fields: [clientId], references: [id])
+  reward     Reward    @relation(fields: [rewardId], references: [id])
+}
+
+model Promotion {
+  id              String    @id @default(uuid())
+  title           String
+  description     String?
+  imageUrl        String?
+  productId       String?
+  discountPercent Float?
+  whatsappMessage String?
+  isActive        Boolean   @default(true)
+  validFrom       DateTime?
+  validUntil      DateTime?
+
+  product         Product?  @relation(fields: [productId], references: [id])
+  recommendationRules RecommendationRule[]
+}
+
+model RecommendationRule {
+  id                  String                @id @default(uuid())
+  triggerType         String
+  productId           String?
+  categoryId          String?
+  intervalDays        Int?
+  messageTitle        String
+  messageBody         String
+  recommendedProductId String?
+  promotionId         String?
+  isActive            Boolean               @default(true)
+
+  product             Product?   @relation("RecRuleProduct", fields: [productId], references: [id])
+  category            Category?  @relation(fields: [categoryId], references: [id])
+  recommendedProduct  Product?   @relation("RecRuleTargetProduct", fields: [recommendedProductId], references: [id])
+  promotion           Promotion? @relation(fields: [promotionId], references: [id])
+}
+
+model ClientRecommendation {
+  id          String    @id @default(uuid())
+  clientId    String
+  ruleId      String?
+  purchaseId  String?
+  title       String
+  body        String
+  isRead      Boolean   @default(false)
+  isDismissed Boolean   @default(false)
+  triggeredAt DateTime  @default(now())
+  expiresAt   DateTime?
+
+  client      User      @relation(fields: [clientId], references: [id])
+  purchase    Purchase? @relation(fields: [purchaseId], references: [id])
+}
+
+model Notification {
+  id       String           @id @default(uuid())
+  clientId String
+  title    String
+  body     String
+  type     String
+  data     String?          
+  isRead   Boolean          @default(false)
+  sentAt   DateTime         @default(now())
+
+  client   User             @relation(fields: [clientId], references: [id])
+}
+
+model AppSetting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String   
+  description String?
+  updatedAt   DateTime @updatedAt
+}

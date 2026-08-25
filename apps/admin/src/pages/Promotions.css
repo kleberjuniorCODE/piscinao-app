@@ -1,0 +1,76 @@
+.promotions-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.promotions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.promo-card {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.promo-header {
+  background: var(--primary-100);
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 120px;
+}
+
+.discount-badge {
+  background: var(--error);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 8px rgba(229, 57, 53, 0.3);
+}
+
+.promo-info {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.promo-info h3 {
+  font-size: 1.25rem;
+  color: var(--primary-dark);
+}
+
+.promo-product {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.promo-meta {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border);
+}
+
+.validity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.promo-actions {
+  margin-top: 16px;
+}
+
+.w-100 {
+  width: 100%;
+}

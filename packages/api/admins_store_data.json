@@ -1,0 +1,22 @@
+[
+  {
+    "id": "adm_1",
+    "name": "Administrador Principal",
+    "email": "admin@piscinao.com.br",
+    "phone": "(18) 99999-9999",
+    "role": "Administrador Geral",
+    "isActive": true,
+    "createdAt": "2026-08-12T23:21:43.810Z",
+    "lastLogin": "2026-08-12T23:21:43.810Z"
+  },
+  {
+    "id": "adm_2",
+    "name": "Kleber Araújo",
+    "email": "kleber.admin@piscinao.com.br",
+    "phone": "(18) 99122-5211",
+    "role": "Gerente da Loja",
+    "isActive": true,
+    "createdAt": "2026-08-12T23:21:43.810Z",
+    "lastLogin": "2026-08-12T23:21:43.810Z"
+  }
+]
