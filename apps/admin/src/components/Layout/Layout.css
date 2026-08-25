@@ -34,10 +34,10 @@
 .logo-subtitle {
   font-size: 0.72rem;
   font-weight: 800;
-  color: #D4A853;
+  color: var(--sky-blue);
   text-transform: uppercase;
   letter-spacing: 3px;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .sidebar-nav {
@@ -74,7 +74,7 @@
 
 .sidebar-link.active {
   color: var(--text-inverse);
-  background: var(--bg-sidebar-active);
+  background: #7A4A2F;
   font-weight: 700;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
@@ -118,10 +118,24 @@
   box-shadow: var(--shadow-sm);
 }
 
+.header-title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
 .page-title {
   font-size: var(--font-size-xl);
-  font-weight: 700;
-  color: var(--text);
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.brand-slogan {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 0.92rem;
+  color: #7A4A2F;
+  font-weight: 600;
 }
 
 .header-user {

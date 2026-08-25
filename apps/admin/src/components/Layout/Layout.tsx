@@ -100,9 +100,12 @@ function Layout({ children }: { children: React.ReactNode }) {
       {/* Main Content */}
       <div className="main-wrapper">
         <header className="top-header">
-          <h1 className="page-title">{getPageTitle()}</h1>
+          <div className="header-title-group">
+            <h1 className="page-title">{getPageTitle()}</h1>
+            <span className="brand-slogan">Confiança que se constrói.</span>
+          </div>
           <div className="header-user" title={`Logado como: ${activeAdmin.name} (${activeAdmin.role || 'Admin'})`}>
-            <div className="header-avatar" style={{ background: '#7D5A3C', color: '#FFF', fontWeight: 800 }}>
+            <div className="header-avatar" style={{ background: '#5B3422', color: '#FFF', fontWeight: 800 }}>
               {activeAdmin.name.charAt(0).toUpperCase()}
             </div>
             <span className="header-name brand-kardust" style={{ fontWeight: 800, letterSpacing: '0.5px' }}>
