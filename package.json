@@ -11,7 +11,11 @@
     "dev:admin": "npm run dev --workspace=apps/admin",
     "db:push": "npm run db:push --workspace=packages/api",
     "db:seed": "npm run db:seed --workspace=packages/api",
-    "db:studio": "npm run db:studio --workspace=packages/api"
+    "db:studio": "npm run db:studio --workspace=packages/api",
+    "lint": "npx @biomejs/biome check .",
+    "test": "npx vitest run --passWithNoTests",
+    "test:e2e": "npx playwright test",
+    "knip": "npx knip"
   },
   "engines": {
     "node": ">=18"
