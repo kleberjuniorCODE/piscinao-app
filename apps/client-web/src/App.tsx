@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import { Home, Ticket, ShoppingBag, Gift, User, Check, MessageCircle, Anchor, Compass, LogOut, MapPin, FileText, Calendar, ShieldCheck } from 'lucide-react';
 import AuthScreen from './components/AuthScreen';
+import { SkeletonProductCard } from './components/Skeleton';
 
 const defaultProducts = [
   { id: '1', name: 'Cloro Granulado 10kg', category: 'Químicos', price: 189.90, desc: 'Tratamento de choque e manutenção regular', imageUrl: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=400&auto=format&fit=crop' },
@@ -369,11 +370,13 @@ function ProductsPage({ productsList }: { productsList: any[] }) {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {filtered.map((prod) => (
-          <div key={prod.id} className="card" style={{ margin: 0 }}>
+          <div key={prod.id} className="card card-hover-motion animate-fade-up" style={{ margin: 0 }}>
             {prod.imageUrl ? (
               <img 
                 src={prod.imageUrl} 
                 alt={prod.name} 
+                loading="lazy"
+                decoding="async"
                 style={{ width: '100%', height: 160, objectFit: 'cover', borderRadius: 12, marginBottom: 12 }} 
               />
             ) : null}
