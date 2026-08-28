@@ -1,0 +1,17 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "apps/admin/src/main.tsx!",
+    "apps/client-web/src/main.tsx!",
+    "packages/api/src/index.ts!"
+  ],
+  "project": [
+    "apps/admin/src/**/*.{ts,tsx}",
+    "apps/client-web/src/**/*.{ts,tsx}",
+    "packages/api/src/**/*.ts"
+  ],
+  "ignoreDependencies": [
+    "vite",
+    "tsx"
+  ]
+}
