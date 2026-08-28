@@ -3,7 +3,7 @@ import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import { 
   Home, Ticket, ShoppingBag, Gift, User, Check, MessageCircle, 
   Compass, LogOut, MapPin, Sparkles, Droplets, Wrench, Lightbulb, 
-  Tag, Store, Info, ShieldCheck, Award, Heart, ChevronRight, X, Phone, Clock, ShoppingCart, Send
+  Tag, Store, Info, ShieldCheck, Award, Heart, ChevronRight, X, Phone, Clock, Anchor
 } from 'lucide-react';
 import AuthScreen from './components/AuthScreen';
 import { SkeletonProductCard } from './components/Skeleton';
@@ -174,7 +174,7 @@ export default function App() {
 
         <div className="app-header-welcome">
           <h2>Olá, {clientUser.name.split(' ')[0]} 👋</h2>
-          <p>Seu clube exclusivo de cuidados com piscina e vantagens VIP.</p>
+          <p>Conquiste cupons em suas compras e destranque o Baú do Tesouro!</p>
         </div>
       </header>
 
@@ -301,14 +301,122 @@ export default function App() {
   );
 }
 
-// 🏠 HomePage with Editorial Cards & Highlights
+// 🏠 HomePage with GAMIFIED TRAIL AS THE HERO PROTAGONIST
 function HomePage({ clientUser, productsList, openModal }: { clientUser: any; productsList: any[]; openModal: (modal: string) => void }) {
   const navigate = useNavigate();
 
+  const getTrailMilestones = (current: number) => {
+    const nodes = [
+      { step: 1, icon: '🏠', title: 'Vila Piscinão', req: 5 },
+      { step: 2, icon: '🌴', title: 'Oásis Cristalino', req: 10 },
+      { step: 3, icon: '🦜', title: 'Guardião das Águas', req: 15 },
+      { step: 4, icon: '🏊', title: 'Lagoa Azul', req: 20 },
+      { step: 5, icon: '💎', title: 'Diamante da Pureza', req: 25 },
+      { step: 6, icon: '🏰', title: 'Fortaleza do Tratamento', req: 30 },
+      { step: 7, icon: '🌴', title: 'Ilha dos Vencedores', req: 35 },
+      { step: 8, icon: '⭐', title: 'Estrela Guia VIP', req: 40 },
+      { step: 9, icon: '🌊', title: 'Recife dos Campeões', req: 45 },
+    ];
+
+    return nodes.map(n => {
+      let state: 'completed' | 'current' | 'locked' = 'locked';
+      if (current >= n.req) {
+        state = 'completed';
+      } else if (current >= n.req - 5) {
+        state = 'current';
+      }
+      return { ...n, state };
+    });
+  };
+
+  const trailSteps = getTrailMilestones(clientUser.coupons);
+
   return (
     <div className="home-editorial-wrapper animate-fade-up">
-      {/* 1. Circular Categories Highlights Bar (From Reference Design) */}
+      
+      {/* 🗺️ PROTAGONIST HERO: TRILHA GAMIFICADA DO TESOURO PISCINÃO */}
+      <section className="trail-hero-section">
+        <div className="card trail-hero-card">
+          <div className="trail-header-title-box">
+            <div className="compass-badge-icon">
+              <Compass size={22} />
+            </div>
+            <div>
+              <span className="section-eyebrow">PROGRAMA VIP EXCLUSIVO</span>
+              <h2 className="trail-main-heading">Trilha do Tesouro Piscinão</h2>
+            </div>
+          </div>
+
+          <p className="trail-hero-subtitle">
+            Avance pelos marcos a cada <strong>R$ 100 em compras</strong> e destranque prêmios incríveis!
+          </p>
+
+          {/* Quick Stats Bar */}
+          <div className="trail-quick-stats">
+            <div className="quick-stat-item">
+              <Ticket size={18} className="text-sky" />
+              <span><strong>{clientUser.coupons}</strong> Cupons Acumulados</span>
+            </div>
+            <div className="quick-stat-item">
+              <Award size={18} className="text-gold" />
+              <span>Nível <strong>{Math.floor(clientUser.coupons / 5) + 1}</strong></span>
+            </div>
+          </div>
+
+          {/* Sinuous Gamified Map Container */}
+          <div className="trail-sinuous-container">
+            
+            {/* Top Golden Treasure Chest (50 Cupons) */}
+            <div className={`treasure-chest-node ${clientUser.coupons >= 50 ? 'unlocked' : 'locked'}`}>
+              <div className="chest-emoji-box">🏆</div>
+              <span className="chest-badge-gold">
+                {clientUser.coupons >= 50 ? '🎉 BAÚ DESBLOQUEADO!' : '50 CUPONS'}
+              </span>
+              <strong className="chest-label">GRANDE BAÚ DO TESOURO</strong>
+              <p className="chest-subtext">Kit Completo de Tratamento de Verão Grátis</p>
+            </div>
+
+            {/* Trail Milestone Nodes in Sinuous Zig-Zag */}
+            <div className="trail-nodes-flow">
+              {trailSteps.slice().reverse().map((node, index) => {
+                const isLeft = index % 2 === 0;
+                return (
+                  <div key={node.step} className={`trail-node-row ${isLeft ? 'left-align' : 'right-align'}`}>
+                    <div className={`trail-milestone-circle ${node.state}`}>
+                      {node.state === 'completed' ? <Check size={26} className="check-icon" /> : <span className="node-emoji">{node.icon}</span>}
+                    </div>
+
+                    <div className="trail-node-info">
+                      <span className="node-coupon-pill">{node.req} CUPONS</span>
+                      <span className="node-title-text">{node.title}</span>
+                      {node.state === 'current' && <span className="node-current-tag">VOCÊ ESTÁ AQUI</span>}
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Anchor Start Node (0 Cupons) */}
+              <div className="trail-node-row center-align start-anchor-row">
+                <div className="trail-milestone-circle completed anchor-circle">
+                  <Anchor size={24} />
+                </div>
+                <div className="trail-node-info">
+                  <span className="node-coupon-pill dark">0 CUPONS</span>
+                  <span className="node-title-text">Início da Sua Jornada VIP</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Circular Categories Highlights Bar */}
       <section className="categories-circular-section">
+        <div className="section-header-editorial" style={{ marginBottom: 8 }}>
+          <span className="section-eyebrow">EXPLORE NOSSA LOJA</span>
+          <h3 className="section-title-editorial" style={{ fontSize: '1.1rem' }}>Categorias & Serviços</h3>
+        </div>
+
         <div className="categories-circular-row">
           <div className="category-circle-item" onClick={() => navigate('/products')}>
             <div className="circle-avatar chocolate"><ShoppingBag size={22} /></div>
@@ -337,7 +445,7 @@ function HomePage({ clientUser, productsList, openModal }: { clientUser: any; pr
         </div>
       </section>
 
-      {/* 2. Editorial Stories & Promotional Carousel (The 4 Distinct Cards) */}
+      {/* 3. Editorial Stories & Promotional Carousel (The 4 Distinct Cards) */}
       <section className="editorial-cards-section">
         <div className="section-header-editorial">
           <span className="section-eyebrow">DESTAQUES EM FOCO</span>
@@ -484,40 +592,6 @@ function HomePage({ clientUser, productsList, openModal }: { clientUser: any; pr
                 </div>
               </button>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Pirate VIP Loyalty Progress & Interactive Map */}
-      <section className="loyalty-progress-section">
-        <div className="card loyalty-card-luxury">
-          <div className="loyalty-card-header">
-            <div className="loyalty-title-wrap">
-              <Ticket size={22} className="text-terracotta" />
-              <div>
-                <h3>Seu Saldo de Cupons</h3>
-                <span className="loyalty-subtitle">Programa de Vantagens Piscinão</span>
-              </div>
-            </div>
-            <span className="level-badge">Nível {Math.floor(clientUser.coupons / 5) + 1}</span>
-          </div>
-
-          <div className="coupon-big-display">
-            <span className="coupon-number-huge">{clientUser.coupons}</span>
-            <span className="coupon-target-text">de {clientUser.targetCoupons} cupons para o Baú de Prêmios</span>
-          </div>
-
-          <div className="progress-bar-luxury">
-            <div 
-              className="progress-bar-fill-luxury" 
-              style={{ width: `${Math.min(100, (clientUser.coupons / clientUser.targetCoupons) * 100)}%` }}
-            />
-          </div>
-
-          <div className="loyalty-footer-cta">
-            <button className="btn-loyalty-action" onClick={() => navigate('/coupons')}>
-              Ver Histórico & Como Ganhar Mais <ChevronRight size={16} />
-            </button>
           </div>
         </div>
       </section>
