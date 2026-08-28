@@ -139,9 +139,9 @@
 }
 
 .badge-gold-pill {
-  background: #FFF8E1;
-  border: 1px solid #FFE082;
-  color: #F57F17;
+  background: #F6F1E9;
+  border: 1px solid #7A4A2F;
+  color: #5B3422;
   padding: 5px 14px;
   border-radius: 20px;
   font-size: 0.82rem;
@@ -157,15 +157,15 @@
 
 .progress-bar-small {
   width: 110px;
-  height: 9px;
-  background: #EDE8E1;
+  height: 8px;
+  background: #EAE1D5;
   border-radius: 10px;
   overflow: hidden;
 }
 
 .progress-bar-small .fill {
   height: 100%;
-  background: var(--accent);
+  background: #7EC4E6;
   border-radius: 10px;
   transition: width 0.3s ease;
 }
@@ -218,31 +218,28 @@
   transition: all 0.15s ease;
   text-decoration: none !important;
   border: 1px solid transparent;
-  white-space: nowrap;
 }
 
 .btn-view {
-  background: var(--primary-50);
-  border-color: var(--primary-100);
-  color: var(--primary-dark);
+  background: #F6F1E9;
+  border-color: #7A4A2F;
+  color: #5B3422;
 }
 
 .btn-view:hover {
-  background: var(--primary);
+  background: #5B3422;
   color: #FFFFFF;
-  transform: translateY(-1px);
 }
 
 .btn-coupons {
-  background: #FFF8E1;
-  border-color: #FFE082;
-  color: #F57F17;
+  background: #7EC4E6;
+  border-color: #7EC4E6;
+  color: #5B3422;
 }
 
 .btn-coupons:hover {
-  background: #F57F17;
+  background: #5BB3DB;
   color: #FFFFFF;
-  transform: translateY(-1px);
 }
 
 .btn-block {
@@ -254,7 +251,6 @@
 .btn-block:hover {
   background: #E53935;
   color: #FFFFFF;
-  transform: translateY(-1px);
 }
 
 .btn-unblock {
@@ -266,7 +262,6 @@
 .btn-unblock:hover {
   background: #2E7D32;
   color: #FFFFFF;
-  transform: translateY(-1px);
 }
 
 .text-center {
