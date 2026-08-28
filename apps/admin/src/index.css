@@ -202,3 +202,88 @@ table {
   from { transform: scale(0.92); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+/* ===== KYLE ZANTOS MOTION PRINCIPLES & ANIMATION SYSTEM ===== */
+
+/* Fade & Slide Entrance (Physics Curve) */
+.animate-fade-up {
+  animation: animateFadeUp 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: animateScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: animateFadeIn 0.25s ease-out forwards;
+}
+
+@keyframes animateFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animateScaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes animateFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Micro-interaction Button Feedback */
+button, .clickable, .btn-action {
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+button:active, .clickable:active {
+  transform: scale(0.97) !important;
+}
+
+/* Hover elevation */
+.card-hover-motion {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.card-hover-motion:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(91, 52, 34, 0.12) !important;
+}
+
+/* Skeleton Shimmer Loading Base */
+.skeleton-box {
+  background: linear-gradient(90deg, #EAE1D5 25%, #F6F1E9 50%, #EAE1D5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Smooth Image Fade-In Lazy Loading */
+.lazy-image {
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}

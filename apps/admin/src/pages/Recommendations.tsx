@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { mockClients, mockProducts } from '../services/api';
+import { SkeletonCard } from '../components/ui/Skeleton';
 import './Recommendations.css';
 
 interface RecommendationRule {
@@ -418,7 +419,7 @@ export default function Recommendations() {
                 const key = `${item.clientId}-${item.productId}`;
 
                 return (
-                  <div key={key} className={`client-rec-card ${item.isOverdue ? 'overdue' : ''} ${item.customIntervalDays !== null ? 'custom' : ''}`}>
+                  <div key={key} className={`client-rec-card card-hover-motion animate-fade-up ${item.isOverdue ? 'overdue' : ''} ${item.customIntervalDays !== null ? 'custom' : ''}`}>
                     {/* Top Identity & Badges */}
                     <div className="client-rec-top">
                       <div className="client-rec-identity">

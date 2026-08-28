@@ -118,7 +118,7 @@ export default function Clients() {
   };
 
   return (
-    <div className="clients-page">
+    <div className="clients-page animate-fade-up">
       <header className="page-header">
         <div>
           <h1 className="clients-title">Gerenciamento de Clientes</h1>
