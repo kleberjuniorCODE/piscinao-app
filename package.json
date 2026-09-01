@@ -9,6 +9,7 @@
     "dev:api": "npm run dev --workspace=packages/api",
     "dev:mobile": "npm run dev --workspace=apps/mobile",
     "dev:admin": "npm run dev --workspace=apps/admin",
+    "dev:site": "npm run dev --workspace=apps/site",
     "db:push": "npm run db:push --workspace=packages/api",
     "db:seed": "npm run db:seed --workspace=packages/api",
     "db:studio": "npm run db:studio --workspace=packages/api",
