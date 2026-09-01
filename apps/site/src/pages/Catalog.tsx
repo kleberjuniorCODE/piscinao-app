@@ -1,130 +1,169 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { products, categories } from '../data/products';
+import { products, categories, Category } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { Breadcrumb } from '../components/Breadcrumb';
 import { SEOHead } from '../components/SEOHead';
+import { Search, Filter, RefreshCw } from 'lucide-react';
 
-const PRICE_RANGES = [
-  { label: 'Todos', min: 0, max: Infinity },
-  { label: 'Até R$ 500', min: 0, max: 500 },
-  { label: 'R$ 500 - R$ 2.000', min: 500, max: 2000 },
-  { label: 'R$ 2.000 - R$ 5.000', min: 2000, max: 5000 },
-  { label: 'Acima de R$ 5.000', min: 5000, max: Infinity },
-];
-
-export const Catalog: React.FC = () => {
+export function Catalog() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const activeCategory = searchParams.get('categoria') || 'Todos';
-  
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activePriceRange, setActivePriceRange] = useState(PRICE_RANGES[0]);
+  const activeCategory = (searchParams.get('categoria') as Category | null) || 'all';
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [priceRange, setPriceRange] = useState('all');
 
   const filteredProducts = useMemo(() => {
     return products.filter(product => {
-      const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesCategory = activeCategory === 'Todos' || product.category === activeCategory;
-      const actualPrice = product.priceDiscount || product.price;
-      const matchesPrice = actualPrice >= activePriceRange.min && actualPrice <= activePriceRange.max;
-      
-      return matchesSearch && matchesCategory && matchesPrice;
-    });
-  }, [searchQuery, activeCategory, activePriceRange]);
+      // Category match
+      if (activeCategory !== 'all' && product.category !== activeCategory) {
+        return false;
+      }
+      // Search term match
+      if (searchTerm.trim() !== '') {
+        const term = searchTerm.toLowerCase();
+        const matchesName = product.name.toLowerCase().includes(term);
+        const matchesDesc = product.description.toLowerCase().includes(term);
+        if (!matchesName && !matchesDesc) return false;
+      }
+      // Price range match
+      const price = product.priceDiscount ?? product.price;
+      if (priceRange === 'under500' && price > 500) return false;
+      if (priceRange === '500to2000' && (price < 500 || price > 2000)) return false;
+      if (priceRange === '2000to5000' && (price < 2000 || price > 5000)) return false;
+      if (priceRange === 'above5000' && price < 5000) return false;
 
-  const handleCategoryClick = (categoryId: string) => {
-    if (categoryId === 'Todos') {
+      return true;
+    });
+  }, [activeCategory, searchTerm, priceRange]);
+
+  const handleCategoryChange = (catId: string) => {
+    if (catId === 'all') {
       searchParams.delete('categoria');
+      setSearchParams(searchParams);
     } else {
-      searchParams.set('categoria', categoryId);
+      setSearchParams({ categoria: catId });
     }
-    setSearchParams(searchParams);
   };
 
-  const clearFilters = () => {
-    setSearchQuery('');
-    setActivePriceRange(PRICE_RANGES[0]);
+  const handleClearFilters = () => {
+    setSearchTerm('');
+    setPriceRange('all');
     searchParams.delete('categoria');
     setSearchParams(searchParams);
   };
 
   return (
-    <main className="page-catalog">
+    <main>
       <SEOHead 
-        title="Catálogo de Produtos | Piscinão Araçatuba" 
-        description="Explore nosso catálogo completo de piscinas, equipamentos, produtos químicos e acessórios." 
+        title="Catálogo Geral & Piscinas | Piscinão Araçatuba" 
+        description="Explore o catálogo completo de piscinas de fibra, aquecedores, filtros, químicos e robôs com entrega rápida." 
         path="/produtos" 
       />
-      
-      <div className="container py-lg">
-        <Breadcrumb items={[{ label: 'Início', path: '/' }, { label: 'Produtos' }]} />
-        
-        <div className="section-header mt-md">
-          <h1 className="h2">Nossos Produtos</h1>
-          <p className="text-muted">{filteredProducts.length} produtos encontrados</p>
-        </div>
 
-        <div className="filters-section mb-xl">
-          <div className="mb-md">
+      <div className="catalog-header-banner">
+        <div className="container">
+          <Breadcrumb items={[{ label: 'Início', path: '/' }, { label: 'Catálogo de Produtos' }]} />
+          <h1>Catálogo Completo</h1>
+          <p className="editorial-title">"Qualidade comprovada para o seu lazer e conforto."</p>
+        </div>
+      </div>
+
+      <div className="container catalog-layout">
+        
+        {/* Search & Filter Bar */}
+        <div className="catalog-filter-bar">
+          
+          <div className="search-input-wrapper">
+            <Search className="search-icon" size={20} />
             <input 
               type="text" 
-              placeholder="Buscar produtos..." 
-              className="form-control w-100 max-w-md"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Buscar por nome do produto, modelo ou descrição (ex: Tropical, Bomba, Cloro)..."
+              className="search-input"
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
             />
           </div>
-          
-          <div className="mb-md">
-            <h3 className="h6 mb-sm">Categorias</h3>
-            <div className="flex gap-sm flex-wrap">
+
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', fontSize: '0.875rem', fontWeight: 700, color: 'var(--chocolate)' }}>
+              <Filter size={16} />
+              <span>Filtrar por Categoria:</span>
+            </div>
+            <div className="filter-chips-list">
               <button 
-                className={`btn btn-sm ${activeCategory === 'Todos' ? 'btn-primary' : 'btn-outline'}`}
-                onClick={() => handleCategoryClick('Todos')}
+                className={`filter-chip ${activeCategory === 'all' ? 'active' : ''}`}
+                onClick={() => handleCategoryChange('all')}
               >
-                Todos
+                Todas ({products.length})
               </button>
-              {categories.map(cat => (
-                <button 
-                  key={cat.id}
-                  className={`btn btn-sm ${activeCategory === cat.id ? 'btn-primary' : 'btn-outline'}`}
-                  onClick={() => handleCategoryClick(cat.id)}
-                >
-                  {cat.name}
-                </button>
-              ))}
+              {categories.map(c => {
+                const count = products.filter(p => p.category === c.id).length;
+                return (
+                  <button 
+                    key={c.id} 
+                    className={`filter-chip ${activeCategory === c.id ? 'active' : ''}`}
+                    onClick={() => handleCategoryChange(c.id)}
+                  >
+                    {c.name} ({count})
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          <div className="mb-md">
-            <h3 className="h6 mb-sm">Faixa de Preço</h3>
-            <div className="flex gap-sm flex-wrap">
-              {PRICE_RANGES.map(range => (
-                <button 
-                  key={range.label}
-                  className={`btn btn-sm ${activePriceRange.label === range.label ? 'btn-primary' : 'btn-outline'}`}
-                  onClick={() => setActivePriceRange(range)}
-                >
-                  {range.label}
-                </button>
-              ))}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', borderTop: '1px solid var(--cream)', paddingTop: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem' }}>
+              <span style={{ fontWeight: 700, color: 'var(--chocolate)' }}>Faixa de Preço:</span>
+              <select 
+                value={priceRange} 
+                onChange={e => setPriceRange(e.target.value)}
+                style={{ 
+                  padding: '6px 12px', 
+                  borderRadius: 'var(--radius-xs)', 
+                  border: '1px solid var(--cream-dark)',
+                  background: 'var(--cream)',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  color: 'var(--chocolate)'
+                }}
+              >
+                <option value="all">Todos os Valores</option>
+                <option value="under500">Até R$ 500</option>
+                <option value="500to2000">R$ 500 a R$ 2.000</option>
+                <option value="2000to5000">R$ 2.000 a R$ 5.000</option>
+                <option value="above5000">Acima de R$ 5.000</option>
+              </select>
+            </div>
+
+            <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+              Exibindo <strong>{filteredProducts.length}</strong> de {products.length} produtos
             </div>
           </div>
+
         </div>
 
+        {/* Product Grid or Empty State */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-3 catalog-grid">
+          <div className="grid-3">
             {filteredProducts.map(product => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-xl bg-cream border-radius-lg">
-            <h3 className="h4 mb-md">Nenhum produto encontrado</h3>
-            <p className="text-muted mb-lg">Tente ajustar seus filtros de busca para encontrar o que procura.</p>
-            <button onClick={clearFilters} className="btn btn-primary">Limpar Filtros</button>
+          <div style={{ textAlign: 'center', padding: '60px 20px', background: 'var(--white)', borderRadius: 'var(--radius-lg)' }}>
+            <h3 style={{ color: 'var(--chocolate)', marginBottom: '8px' }}>Nenhum produto encontrado</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '24px' }}>
+              Tente alterar os termos da busca ou limpar os filtros de categoria e preço.
+            </p>
+            <button className="btn btn-primary" onClick={handleClearFilters}>
+              <RefreshCw size={16} />
+              <span>Limpar Todos os Filtros</span>
+            </button>
           </div>
         )}
+
       </div>
     </main>
   );
-};
+}

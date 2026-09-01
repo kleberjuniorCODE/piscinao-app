@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 
@@ -11,7 +10,7 @@ interface BreadcrumbProps {
   items: BreadcrumbItem[];
 }
 
-export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
+export function Breadcrumb({ items }: BreadcrumbProps) {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -28,21 +27,21 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
       <script type="application/ld+json">
         {JSON.stringify(schemaData)}
       </script>
-      <ol className="breadcrumb-list">
+      <div className="breadcrumb-list">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
-            <li key={index} className="breadcrumb-item">
+            <span key={index} className="breadcrumb-item">
               {isLast || !item.path ? (
                 <span className="breadcrumb-current" aria-current="page">{item.label}</span>
               ) : (
                 <Link to={item.path} className="breadcrumb-link">{item.label}</Link>
               )}
-              {!isLast && <ChevronRight size={16} className="breadcrumb-separator" />}
-            </li>
+              {!isLast && <ChevronRight size={14} className="breadcrumb-separator" />}
+            </span>
           );
         })}
-      </ol>
+      </div>
     </nav>
   );
-};
+}

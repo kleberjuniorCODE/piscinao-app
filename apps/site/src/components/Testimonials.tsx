@@ -1,50 +1,68 @@
-import React from 'react';
-import { Quote, Star } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 
-export const Testimonials: React.FC = () => {
-  const items = [
+export function Testimonials() {
+  const reviews = [
     {
-      id: 1,
-      text: "Excelente atendimento! A equipe do Piscinão nos ajudou a escolher a piscina perfeita para nossa casa. Instalação impecável.",
-      author: "Maria S.",
-      location: "Jd. Nova Iorque, Araçatuba",
-      rating: 5
+      name: 'Maria Silveira',
+      neighborhood: 'Jd. Nova Iorque, Araçatuba',
+      text: 'Excelente atendimento! A equipe do Piscinão nos auxiliou desde o projeto até a instalação da piscina de fibra. Foi super rápido e o resultado superou todas as expectativas da nossa família.',
+      rating: 5,
+      avatar: 'MS'
     },
     {
-      id: 2,
-      text: "Compro todos os produtos de tratamento aqui há 10 anos. Preço justo e sempre tem tudo que preciso.",
-      author: "Carlos R.",
-      location: "Vila Mendonça, Araçatuba",
-      rating: 5
+      name: 'Carlos Roberto',
+      neighborhood: 'Vila Mendonça, Araçatuba',
+      text: 'Compro cloro e produtos de tratamento no Piscinão há mais de 10 anos. Eles fazem o teste da água na hora e indicam exatamente a dosagem certa sem desperdício.',
+      rating: 5,
+      avatar: 'CR'
     },
     {
-      id: 3,
-      text: "O serviço de manutenção é nota 10. Minha piscina está sempre cristalina graças à consultoria química deles.",
-      author: "Ana P.",
-      location: "Conj. Habitacional, Birigui",
-      rating: 5
+      name: 'Ana Paula Zanini',
+      neighborhood: 'Condomínio Quinta da Mata, Birigui',
+      text: 'Instalamos o trocador de calor e o robô aspirador. Agora nossa piscina fica quentinha o ano todo e a limpeza é 100% automática. Recomendo de olhos fechados!',
+      rating: 5,
+      avatar: 'AZ'
     }
   ];
 
   return (
-    <div className="testimonials-grid">
-      {items.map(item => (
-        <div key={item.id} className="testimonial-card">
-          <Quote className="testimonial-icon" size={32} />
-          <p className="testimonial-text">{item.text}</p>
-          <div className="testimonial-footer">
-            <div className="testimonial-author-info">
-              <span className="testimonial-author">{item.author}</span>
-              <span className="testimonial-location">{item.location}</span>
-            </div>
-            <div className="testimonial-rating">
-              {[...Array(item.rating)].map((_, i) => (
-                <Star key={i} size={16} fill="currentColor" />
-              ))}
-            </div>
-          </div>
+    <section className="section testimonials-section">
+      <div className="container">
+        <div className="section-header">
+          <span className="section-tag">Depoimentos Reais</span>
+          <h2 className="section-title">O que Dizem Nossos Clientes</h2>
+          <p className="section-subtitle">
+            Mais de 5.000 famílias atendidas em Araçatuba, Birigui e toda a região.
+          </p>
         </div>
-      ))}
-    </div>
+
+        <div className="grid-3">
+          {reviews.map((r, i) => (
+            <div key={i} className="testimonial-card">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="stars-row">
+                  {[...Array(r.rating)].map((_, idx) => (
+                    <Star key={idx} size={18} fill="var(--gold)" color="var(--gold)" />
+                  ))}
+                </div>
+                <Quote size={28} style={{ opacity: 0.2, color: 'var(--chocolate)' }} />
+              </div>
+
+              <p className="testimonial-quote">
+                "{r.text}"
+              </p>
+
+              <div className="testimonial-author-box">
+                <div className="author-avatar">{r.avatar}</div>
+                <div className="author-info">
+                  <h4>{r.name}</h4>
+                  <p>{r.neighborhood}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
-};
+}

@@ -1,42 +1,43 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Droplet, Waves, Sparkles, Filter, Thermometer } from 'lucide-react';
 import { CategoryInfo } from '../data/products';
+import { 
+  Waves, 
+  BrickWall, 
+  ThermometerSun, 
+  Settings, 
+  FlaskConical, 
+  Bot, 
+  Sparkles,
+  LucideIcon
+} from 'lucide-react';
 
-interface CategoryCircleProps {
+interface CategoryCardProps {
   category: CategoryInfo;
-  onClick?: () => void;
 }
 
-const iconMap: Record<string, React.ReactNode> = {
-  'waves': <Waves size={32} />,
-  'droplet': <Droplet size={32} />,
-  'sparkles': <Sparkles size={32} />,
-  'filter': <Filter size={32} />,
-  'thermometer': <Thermometer size={32} />
+const iconMap: Record<string, LucideIcon> = {
+  'waves': Waves,
+  'brick-wall': BrickWall,
+  'thermometer-sun': ThermometerSun,
+  'settings': Settings,
+  'flask-conical': FlaskConical,
+  'bot': Bot,
+  'sparkles': Sparkles,
 };
 
-export const CategoryCircle: React.FC<CategoryCircleProps> = ({ category, onClick }) => {
-  const content = (
-    <>
-      <div className="category-circle-icon">
-        {iconMap[category.icon] || <Droplet size={32} />}
-      </div>
-      <span className="category-label">{category.name}</span>
-    </>
-  );
-
-  if (onClick) {
-    return (
-      <button className="category-circle" onClick={onClick}>
-        {content}
-      </button>
-    );
-  }
+export function CategoryCircle({ category }: CategoryCardProps) {
+  const IconComponent = iconMap[category.icon] || Waves;
 
   return (
-    <Link to={`/produtos?categoria=${category.id}`} className="category-circle">
-      {content}
+    <Link 
+      to={`/produtos?categoria=${category.id}`} 
+      className="category-card"
+      title={`Ver produtos da categoria ${category.name}`}
+    >
+      <div className="category-icon-wrapper">
+        <IconComponent size={28} />
+      </div>
+      <span className="category-name">{category.name}</span>
     </Link>
   );
-};
+}
