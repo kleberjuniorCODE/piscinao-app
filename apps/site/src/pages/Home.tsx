@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { categories, getFeaturedProducts } from '../data/products';
-import { HeroBanner } from '../components/HeroBanner';
+import { HeroCarousel } from '../components/HeroCarousel';
+import { PoolShowcase } from '../components/PoolShowcase';
 import { CategoryCircle } from '../components/CategoryCircle';
 import { ProductCard } from '../components/ProductCard';
 import { PoolSimulator } from '../components/PoolSimulator';
 import { Testimonials } from '../components/Testimonials';
 import { SEOHead } from '../components/SEOHead';
-import { MapPin, Phone, Clock, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Clock, ArrowRight, ShieldCheck, Award, HeartHandshake, Sparkles } from 'lucide-react';
 
 export function Home() {
   const featuredProducts = getFeaturedProducts();
@@ -19,14 +20,53 @@ export function Home() {
         path="/" 
       />
 
-      {/* 1. Hero Banner with Facade Background */}
-      <HeroBanner />
+      {/* 1. Grand Hero Carousel with Large Visual Slides */}
+      <HeroCarousel />
 
-      {/* 2. Category Highlights */}
+      {/* 2. Trust Bar Metrics immediately below the carousel */}
+      <section className="hero-metrics-bar">
+        <div className="container">
+          <div className="metrics-grid">
+            <div className="metric-item">
+              <Award size={28} className="metric-icon" />
+              <div>
+                <span className="metric-number">20+ Anos</span>
+                <span className="metric-label">Tradição em Araçatuba</span>
+              </div>
+            </div>
+            <div className="metric-item">
+              <Sparkles size={28} className="metric-icon" />
+              <div>
+                <span className="metric-number">+500 Piscinas</span>
+                <span className="metric-label">Instaladas na Região</span>
+              </div>
+            </div>
+            <div className="metric-item">
+              <ShieldCheck size={28} className="metric-icon" />
+              <div>
+                <span className="metric-number">15 Anos</span>
+                <span className="metric-label">Garantia Estrutural</span>
+              </div>
+            </div>
+            <div className="metric-item">
+              <HeartHandshake size={28} className="metric-icon" />
+              <div>
+                <span className="metric-number">100% Suporte</span>
+                <span className="metric-label">Assistência & Químicos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Pool Demonstrations & Finished Projects Showcase (Like iGUI) */}
+      <PoolShowcase />
+
+      {/* 4. Category Highlights */}
       <section className="section bg-cream">
         <div className="container">
           <div className="section-header">
-            <span className="section-tag">Categorias Completas</span>
+            <span className="section-tag">Departamentos</span>
             <h2 className="section-title">Tudo o que sua Piscina Precisa</h2>
             <p className="section-subtitle">
               Navegue pelos nossos departamentos de piscinas, tecnologia de aquecimento e tratamento.
@@ -40,14 +80,14 @@ export function Home() {
         </div>
       </section>
 
-      {/* 3. Featured Products */}
+      {/* 5. Featured Products */}
       <section className="section bg-white">
         <div className="container">
           <div className="section-header">
             <span className="section-tag">Destaques da Loja</span>
-            <h2 className="section-title">Mais Procurados em Araçatuba</h2>
+            <h2 className="section-title">Equipamentos & Modelos Mais Vendidos</h2>
             <p className="section-subtitle">
-              Equipamentos e modelos de piscinas mais vendidos com pronta entrega e condições especiais.
+              Produtos com pronta entrega e condições especiais de pagamento em até 12x.
             </p>
           </div>
 
@@ -66,56 +106,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* 4. About Preview with Real Facade Photo */}
-      <section className="section about-preview-section">
-        <div className="container">
-          <div className="about-card-container">
-            <div>
-              <span className="section-tag">Tradição & Excelência</span>
-              <h2 className="section-title" style={{ textAlign: 'left', marginBottom: '16px' }}>
-                Mais de 20 Anos Cuidando do Seu Lazer
-              </h2>
-              <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', marginBottom: '16px', lineHeight: '1.7' }}>
-                Fundado em 2004 em Araçatuba, o <strong>Piscinão</strong> nasceu com a missão de oferecer produtos da mais alta qualidade, desde o planejamento e escavação até a manutenção química diária.
-              </p>
-              <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', marginBottom: '24px', lineHeight: '1.7' }}>
-                Nossa equipe técnica é especializada em balanceamento e automação, garantindo água cristalina e segura para toda a família o ano inteiro.
-              </p>
-
-              <div className="stats-grid">
-                <div className="stat-box">
-                  <div className="stat-value">20+</div>
-                  <div className="stat-label">Anos em Araçatuba</div>
-                </div>
-                <div className="stat-box">
-                  <div className="stat-value">5.000+</div>
-                  <div className="stat-label">Clientes Atendidos</div>
-                </div>
-                <div className="stat-box">
-                  <div className="stat-value">500+</div>
-                  <div className="stat-label">Projetos Entregues</div>
-                </div>
-              </div>
-
-              <Link to="/sobre" className="btn btn-secondary">
-                <span>Conheça Nossa História Completa</span>
-                <ArrowRight size={18} />
-              </Link>
-            </div>
-
-            <div className="about-store-photo-box">
-              <img 
-                src="/images/piscinao-fachada.jpg" 
-                alt="Fachada Loja Piscinão Araçatuba" 
-                className="about-store-photo"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Interactive Pool Simulator */}
+      {/* 6. Interactive Pool Simulator */}
       <section className="section bg-cream">
         <div className="container">
           <div className="section-header">
@@ -130,17 +121,17 @@ export function Home() {
         </div>
       </section>
 
-      {/* 6. Testimonials */}
+      {/* 7. Testimonials */}
       <Testimonials />
 
-      {/* 7. Contact / Visit Store Preview */}
+      {/* 8. Contact / Visit Store Preview */}
       <section className="section bg-white">
         <div className="container">
           <div className="section-header">
             <span className="section-tag">Atendimento Presencial & Online</span>
-            <h2 className="section-title">Venha Tomar um Café Conosco</h2>
+            <h2 className="section-title">Venha Conhecer Nossa Loja Conceito</h2>
             <p className="section-subtitle">
-              Conheça nossa loja em Araçatuba e converse com nossos especialistas.
+              Estamos em Araçatuba com showroom completo de modelos, aquecedores e consultoria química.
             </p>
           </div>
 
@@ -151,7 +142,7 @@ export function Home() {
               </div>
               <div>
                 <h4 style={{ color: 'var(--chocolate)', fontSize: '1.05rem', marginBottom: '4px' }}>Endereço</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Araçatuba - SP (Atendimento para toda a região)</p>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Araçatuba - SP • Atendimento regional</p>
               </div>
             </div>
 
