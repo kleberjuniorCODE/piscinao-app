@@ -71,12 +71,6 @@ export function About() {
                 alt="Loja Piscinão Araçatuba Fachada" 
                 className="about-store-photo"
               />
-              <div className="store-floating-badge">
-                <div className="store-badge-text">
-                  <h4>Sede Própria em Araçatuba</h4>
-                  <p>Tradição familiar desde 2004</p>
-                </div>
-              </div>
             </div>
 
             <div>

@@ -6,7 +6,7 @@ import { ProductCard } from '../components/ProductCard';
 import { PoolSimulator } from '../components/PoolSimulator';
 import { Testimonials } from '../components/Testimonials';
 import { SEOHead } from '../components/SEOHead';
-import { MapPin, Phone, MessageCircle, Clock, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Clock, ArrowRight } from 'lucide-react';
 
 export function Home() {
   const featuredProducts = getFeaturedProducts();
@@ -110,21 +110,6 @@ export function Home() {
                 className="about-store-photo"
                 loading="lazy"
               />
-              <div className="store-floating-badge">
-                <div className="store-badge-text">
-                  <h4>Loja Conceito Piscinão</h4>
-                  <p>Araçatuba - SP • Venha nos visitar</p>
-                </div>
-                <a 
-                  href="https://wa.me/5518991024742" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="btn btn-whatsapp btn-sm"
-                >
-                  <MessageCircle size={16} />
-                  <span>WhatsApp</span>
-                </a>
-              </div>
             </div>
           </div>
         </div>
